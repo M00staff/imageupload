@@ -3,9 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.7.3",
+    "@fastify/cors": "^8.2.0",
+    "@prisma/client": "^4.7.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "fastify": "^4.10.2",
+    "fastify-plugin": "^4.4.0",
+    "mercurius": "^11.4.0",
+    "nodemon": "^2.0.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -13,6 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "nodemon src/server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prisma": "^4.7.1"
   }
 }
