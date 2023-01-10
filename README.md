@@ -1,3 +1,26 @@
+# Bootstrapping instructions
+
+## Pull down repo
+
+### `npm install`
+
+### `npm start`
+
+### `npm run server`
+
+<br>
+
+## Ensure you have a postgres server running (tested with version 12.13), and copy the example.env file into an .env file to connect to your local postgres server
+## To run the initial Prisma migration
+### `npx prisma migrate dev --name initial-migration --create-only`
+## then
+### `npx prisma migrate dev`
+
+
+<br>
+
+<br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
