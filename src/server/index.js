@@ -28,7 +28,7 @@ const resolvers = {
     },
     searchPosts: async (_parent, args, context) => {
       const result = await prisma.post.findMany({
-        where: { title: args.term },
+        where: { title: { contains: args.term } },
       })
       return result;
     }

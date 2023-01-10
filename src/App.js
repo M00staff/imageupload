@@ -31,7 +31,6 @@ const ADD_POST = gql`
   }
 `
 
-
 function App() {
   const [searchInput, setSearchInput] = useState('');
   const [postList, setPostsList] = useState([]);
@@ -47,9 +46,12 @@ function App() {
     setPostsList(getPosts)
   }, [getPosts, postList])
 
-  const handleSearch = event => {
-    event.preventDefault();
+  useEffect(() => {
     setSearchList(searchPosts)
+  }, [setSearchInput, searchPosts])
+
+  const handleSearch = value => {
+    setSearchInput(value)
   }
 
   const showUploadWidget = () => {
@@ -58,6 +60,11 @@ function App() {
       uploadPreset: "zzcjm34d",
       sources: [
         "local"
+      ],
+      clientAllowedFormats: [
+        "gif",
+        "jpeg",
+        "png",
       ],
       showAdvancedOptions: false,
       cropping: false,
@@ -101,45 +108,41 @@ function App() {
       });
   }
 
+  const RenderPostsComponent = () => {
+    if (searchInput === '') {
+      return (
+        postList?.length > 0 && postList.map(x => (
+          <div key={x.id}>
+            <div>{x.title}</div>
+            <img src={x.url} alt={x.title} width="250" height="250" />
+          </div>
+        ))
+      )
+    }
+    return (
+      searchList?.map(x => (
+        <div key={x.id}>
+          <div>{x.title}</div>
+          <img src={x.url} alt={x.title} width="250" height="250" />
+        </div>
+      ))
+    )
+  }
+
   return (
     <div className="App">
-
       <div className="headingWrapper">
-        <form onSubmit={handleSearch}>
-            <input
-            onChange={e => (setSearchInput(e.target.value))}
-            placeholder="Search Images"
-          />
-        </form>
-        <button onClick={showUploadWidget}>UPLOAD</button>
+        <input onChange={e => (handleSearch(e.target.value))} placeholder="Search Images" />
+        <button className="uploadButton" onClick={showUploadWidget}>UPLOAD</button>
       </div>
 
-      <div className="searchResults">
-        {searchList?.length > 0
-          ? searchList.map(x => (
-            <div key={x.id}>
-              <span>{x.title}</span>
-              <img src={x.url} alt={x.title} width="250" height="250" />
-            </div>
-          ))
-          : "No Results"
-        }
+      <div className="titleWrapper">
+        <h2>{searchInput === '' ? 'All' : searchList?.length} Images</h2>
       </div>
 
-      <div>
-        <div className="titleWrapper">
-          <h2>{postList?.length} Images</h2>
-        </div>
-        <div className="postList">
-          {postList?.length > 0 && postList.map(x => (
-            <div key={x.id}>
-              <span>{x.title}</span>
-              <img src={x.url} alt={x.title} width="250" height="250" />
-            </div>
-          ))}
-        </div>
+      <div className="postList">
+        <RenderPostsComponent />
       </div>
-
     </div>
   );
 }

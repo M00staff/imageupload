@@ -8,14 +8,15 @@
   justify-content: space-between;
 }
 
-.searchResults {
-  display: flex;
-  justify-content: center;
-}
-
 .postList {
   display: flex;
-  flex-direction: row;
+  justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.uploadButton {
+  height: 2.5em;
+  width: 15%;
 }
 
 .titleWrapper {
