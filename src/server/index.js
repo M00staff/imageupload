@@ -10,13 +10,14 @@ const schema = `
   type Post {
     id: Int
     title: String
+    url: String
   }
   type Query {
     getPosts: [Post]
     searchPosts(term: String): [Post]
   }
   type Mutation {
-    post(title: String!): Post
+    post(title: String!, url: String!): Post
   }
 `
 
@@ -36,7 +37,8 @@ const resolvers = {
     post: async (_parent, args, context) => {
       return context.prisma.post.create({
         data: {
-          title: args.title
+          title: args.title,
+          url: args.url
         }
       })
     },
